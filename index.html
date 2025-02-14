@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorpresa de Rosas</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background: #f0f0f0;
+            transition: background 1s ease-in-out;
+            position: relative;
+        }
+        
+        
+        .gift-box {
+            width: 150px;
+            height: 150px;
+            background: url('https://media.istockphoto.com/id/1791330338/es/vector/cinta-de-regalo-blanco-y-lazo-sobre-fondo-rojo.jpg?s=612x612&w=0&k=20&c=Psrod1Z77NkEXo6U4nhawq-EyjlNWKTV3Vb4OIs4ie0=') no-repeat center center / cover;
+            cursor: pointer;
+            transition: opacity 0.5s ease;
+        }
+        .hidden {
+            display: none;
+        }
+        .message {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            background: rgb(224, 18, 18);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+        }
+        .rose {
+            position: absolute;
+            width: 290px;
+            height: 290px;
+            background-image: url("depositphotos_242072872-stock-illustration-illustration-red-rose-cartoon-removebg-preview.png");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="gift-box" id="giftBox" onclick="openGift()"></div>
+    </div>
+    <div class="message" id="message">Entonces te das cuenta, que no es quien te mueve el piso, sino quién te centra. No es quien te robe el corazón, sino quién te hace sentir que lo tienes de vuelta. ❤️</div>
+
+    <script>
+        function openGift() {
+            document.getElementById('giftBox').classList.add('hidden');
+            document.body.style.background = "#f0f0f0";
+            createRoses();
+        }
+
+        function createRoses() {
+            let maxRoses = Math.floor(window.innerWidth / 100) * Math.floor(window.innerHeight / 100);
+            let count = 0;
+            let interval = setInterval(() => {
+                if (count >= maxRoses) {
+                    clearInterval(interval);
+                    document.getElementById('message').style.display = 'block';
+                    return;
+                }
+                let rose = document.createElement('div');
+                rose.classList.add('rose');
+                rose.style.left = `${Math.random() * (window.innerWidth - 100)}px`;
+                rose.style.top = `${Math.random() * (window.innerHeight - 100)}px`;
+                document.body.appendChild(rose);
+                setTimeout(() => {
+                    rose.style.opacity = 1;
+                }, 100);
+                count++;
+            }, 100);
+        }
+    </script>
+</body>
+</html>
